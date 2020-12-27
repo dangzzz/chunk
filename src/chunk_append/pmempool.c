@@ -61,7 +61,9 @@ void create_pool()
 
 chunk_t *alloc_chunk()
 {
-    void *ret = pool_global->tailptr;
+    chunk_t *ret = pool_global->tailptr;
     pool_global->tailptr = (void *)((intptr_t)pool_global->tailptr + CHUNK_SIZE);
+    ret->avail_size = CHUNK_SIZE-ALIGNMENT_CEILING(sizeof(chunk_t),ALIGNMENT);
+    ret->tail_ptr = (region_t *)((intptr_t)ret + ALIGNMENT_CEILING(sizeof(chunk_t),ALIGNMENT));
     return ret;
 }

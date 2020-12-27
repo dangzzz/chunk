@@ -30,7 +30,8 @@ add_library(${CMAKE_PROJECT_NAME}_static STATIC ${${CMAKE_PROJECT_NAME}_src})
 target_compile_definitions(${CMAKE_PROJECT_NAME}_static PRIVATE ${CHUNK_TYPE_D})
 
 #为lsmalloc_static添加编译器flag
-target_compile_options(${CMAKE_PROJECT_NAME}_static PRIVATE -pipe -funroll-loops -D_GNU_SOURCE -D_REENTRANT)
+target_compile_options(${CMAKE_PROJECT_NAME}_static PRIVATE -std=gnu99 -pipe -funroll-loops -D_GNU_SOURCE -D_REENTRANT)
+target_link_libraries(${CMAKE_PROJECT_NAME}_static pmem)
 
 #设置lsmalloc_static输出时叫lsmalloc
 set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES OUTPUT_NAME "${CMAKE_PROJECT_NAME}")
@@ -39,7 +40,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES OUTPUT_NAME "${CMA
 enable_testing()
 
 #只需要在下面一行加入你测试文件的文件名就可以了,测试文件要放在test/src/
-set(testsource xx.c)
+set(testsource sample_test.c)
 
 list(LENGTH testsource testsourcelength)
 math(EXPR testsourcelength "${testsourcelength}-1")

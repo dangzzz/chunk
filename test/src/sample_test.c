@@ -1,11 +1,14 @@
-#include "chunk/chunk.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include "chunk/chunk.h"
+
 
 int main()
 {
     chunk_init();
-    int *ptr = chunk_malloc(100, &ptr);
+    int *ptr = chunk_malloc(100, (void**)&ptr);
     *ptr = 100;
     printf("%d\n", *ptr);
-    return;
+    return 0;
 }
