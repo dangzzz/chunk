@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 cmake_policy(VERSION 3.10)
 project(chunk)
 
-SET(CMAKE_BUILD_TYPE "DEBUG")
+#SET(CMAKE_BUILD_TYPE "DEBUG")
 SET(CMAKE_C_FLAGS_DEBUG "-DCHUNKDEBUG -O0 -g3 -Wall")
 SET(CMAKE_C_FLAGS_RELEASE " -O3 ")
 

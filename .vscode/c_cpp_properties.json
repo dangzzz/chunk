@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/include"
             ],
-            "defines": [],
+            "defines": [
+                "CHUNK_APPEND"
+            ],
             "compilerPath": "/usr/local/bin/gcc",
             "cStandard": "gnu99",
             "cppStandard": "gnu++14",

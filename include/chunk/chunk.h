@@ -6,7 +6,7 @@ extern "C" {
 
 void * chunk_malloc(size_t size, void** ptr);
 void chunk_free(void *ptr);
-
+void chunk_init();
 
 
 
