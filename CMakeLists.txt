@@ -25,7 +25,8 @@ string(TOUPPER ${CHUNK_TYPE} CHUNK_TYPE_D)
 aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/src/${CHUNK_TYPE} ${CMAKE_PROJECT_NAME}_src)
 
 #添加目标静态库文件lsmalloc_static,生成所用的源文件是lsmalloc_src
-add_library(${CMAKE_PROJECT_NAME}_static STATIC ${${CMAKE_PROJECT_NAME}_src})
+add_library(${CMAKE_PROJECT_NAME}_static STATIC ${${CMAKE_PROJECT_NAME}_src} ${CMAKE_CURRENT_LIST_DIR}/src/pmempool.c)
+
 
 target_compile_definitions(${CMAKE_PROJECT_NAME}_static PRIVATE ${CHUNK_TYPE_D})
 
@@ -40,7 +41,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES OUTPUT_NAME "${CMA
 enable_testing()
 
 #只需要在下面一行加入你测试文件的文件名就可以了,测试文件要放在test/src/
-set(testsource sample_test.c)
+set(testsource single_thread_test.c)
 
 list(LENGTH testsource testsourcelength)
 math(EXPR testsourcelength "${testsourcelength}-1")

@@ -13,6 +13,46 @@ pool_t *pool_global = &pmempool;
 /* Inline tool function */
 
 /******************************************************************************/
+/*
+void create_pool()
+{
+    void *addr;
+    char str[32];
+    size_t mapped_len;
+
+    size_t size = PMEMPOOL_SIZE;
+    size_t alignment = CHUNK_SIZE;
+
+    sprintf(str, "/mnt/pmem/dz_chunk_testfile");
+    remove(str);
+    if ((addr = mmap(NULL,size,PROT_READ | PROT_WRITE,MAP_ANON | MAP_SHARED,0,0)) == NULL)
+    {
+        perror("pmem_map_file");
+        exit(1);
+    }
+
+    //alignment:chunksize
+    if ((uintptr_t)addr == ALIGNMENT_CEILING((uintptr_t)addr, alignment))
+    {
+        pmempool.paddr = addr;
+    }
+    else
+    {   
+        munmap(addr,size);
+        remove(str);
+        if ((addr = mmap(NULL,size+CHUNK_SIZE,PROT_READ | PROT_WRITE,MAP_ANON | MAP_SHARED,0,0)) == NULL)
+        {
+            perror("pmem_map_file");
+            exit(1);
+        }
+        pmempool.paddr = (void *)ALIGNMENT_CEILING((uintptr_t)addr, alignment);
+        munmap(addr,((intptr_t)pmempool.paddr - (intptr_t)addr));
+        munmap((void *)((intptr_t)pmempool.paddr + size), ((intptr_t)addr + CHUNK_SIZE - (intptr_t)pmempool.paddr));
+    }
+
+    pmempool.tailptr = pmempool.paddr;
+}
+*/
 
 void create_pool()
 {
@@ -25,7 +65,7 @@ void create_pool()
     size_t alignment = CHUNK_SIZE;
 
     sprintf(str, "/mnt/pmem/dz_chunk_testfile");
-
+    remove(str);
     if ((addr = pmem_map_file(str, size, PMEM_FILE_CREATE, 0666, &mapped_len, &is_pmem)) == NULL)
     {
         perror("pmem_map_file");
@@ -63,7 +103,6 @@ chunk_t *alloc_chunk()
 {
     chunk_t *ret = pool_global->tailptr;
     pool_global->tailptr = (void *)((intptr_t)pool_global->tailptr + CHUNK_SIZE);
-    ret->avail_size = CHUNK_SIZE-ALIGNMENT_CEILING(sizeof(chunk_t),ALIGNMENT);
-    ret->tail_ptr = (region_t *)((intptr_t)ret + ALIGNMENT_CEILING(sizeof(chunk_t),ALIGNMENT));
+
     return ret;
 }

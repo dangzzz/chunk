@@ -6,7 +6,7 @@
                 "${workspaceFolder}/include"
             ],
             "defines": [
-                "CHUNK_APPEND"
+                "CHUNK_SPLIT"
             ],
             "compilerPath": "/usr/local/bin/gcc",
             "cStandard": "gnu99",

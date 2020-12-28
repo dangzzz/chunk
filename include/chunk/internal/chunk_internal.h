@@ -63,6 +63,13 @@
     #define REGION_DIRTY 1
 
     #include "chunk/internal/chunk_append.h"
+#elif defined CHUNK_BITMAP
+    #include "chunk/internal/chunk_bitmap.h"
+#elif defined CHUNK_SPLIT
+    #define REGION_CLEAN 0
+    #define REGION_DIRTY 1
+    #include "chunk/internal/chunk_split.h"
+
 #endif
 
 
@@ -74,7 +81,14 @@
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
     #include "chunk/internal/chunk_append.h"
+#elif defined CHUNK_BITMAP
+    #include "chunk/internal/chunk_bitmap.h"
+
+#elif defined CHUNK_SPLIT
+    #include "chunk/internal/chunk_split.h"
+
 #endif
+
 
 
 
@@ -86,7 +100,15 @@ extern pool_t *pool_global;
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
     #include "chunk/internal/chunk_append.h"
+#elif defined CHUNK_BITMAP
+    #include "chunk/internal/chunk_bitmap.h"
+
+#elif defined CHUNK_SPLIT
+    #include "chunk/internal/chunk_split.h"
+
 #endif
+
+
 
 
 
@@ -99,6 +121,12 @@ extern pool_t *pool_global;
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
     #include "chunk/internal/chunk_append.h"
+#elif defined CHUNK_BITMAP
+    #include "chunk/internal/chunk_bitmap.h"
+
+#elif defined CHUNK_SPLIT
+    #include "chunk/internal/chunk_split.h"
+
 #endif
 
 

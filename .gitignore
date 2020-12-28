@@ -8,7 +8,7 @@
 /test/src/*.[od]
 
 
-
+/.vscode
 
 
 /cmake_install.cmake
