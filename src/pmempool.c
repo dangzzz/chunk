@@ -99,7 +99,7 @@ void create_pool()
     pmempool.tailptr = pmempool.paddr;
 }
 
-chunk_t *alloc_chunk()
+chunk_t *pool_alloc_chunk()
 {
     chunk_t *ret = pool_global->tailptr;
     pool_global->tailptr = (void *)((intptr_t)pool_global->tailptr + CHUNK_SIZE);

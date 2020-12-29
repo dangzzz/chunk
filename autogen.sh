@@ -8,13 +8,16 @@ then
     echo $chunktype
 fi
 
-if [ "$1" == "s" ]
+if [ "$1" == "sf" ]
 then
-    chunktype="chunk_split"
+    chunktype="chunk_split_follow"
     echo $chunktype
 fi
 
 #git clean -f -d -x
 rm -rf /mnt/pmem/dz*
+rm -rf bin
+rm -rf lib
 cmake CMakeLists.txt -DCHUNK_TYPE=$chunktype -DCMAKE_BUILD_TYPE=RELEASE
+make clean
 make

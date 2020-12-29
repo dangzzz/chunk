@@ -65,10 +65,10 @@
     #include "chunk/internal/chunk_append.h"
 #elif defined CHUNK_BITMAP
     #include "chunk/internal/chunk_bitmap.h"
-#elif defined CHUNK_SPLIT
+#elif defined CHUNK_SPLIT_FOLLOW
     #define REGION_CLEAN 0
     #define REGION_DIRTY 1
-    #include "chunk/internal/chunk_split.h"
+    #include "chunk/internal/chunk_split_follow.h"
 
 #endif
 
@@ -84,11 +84,12 @@
 #elif defined CHUNK_BITMAP
     #include "chunk/internal/chunk_bitmap.h"
 
-#elif defined CHUNK_SPLIT
-    #include "chunk/internal/chunk_split.h"
+#elif defined CHUNK_SPLIT_FOLLOW
+    #define REGION_CLEAN 0
+    #define REGION_DIRTY 1
+    #include "chunk/internal/chunk_split_follow.h"
 
 #endif
-
 
 
 
@@ -103,8 +104,10 @@ extern pool_t *pool_global;
 #elif defined CHUNK_BITMAP
     #include "chunk/internal/chunk_bitmap.h"
 
-#elif defined CHUNK_SPLIT
-    #include "chunk/internal/chunk_split.h"
+#elif defined CHUNK_SPLIT_FOLLOW
+    #define REGION_CLEAN 0
+    #define REGION_DIRTY 1
+    #include "chunk/internal/chunk_split_follow.h"
 
 #endif
 
@@ -124,8 +127,10 @@ extern pool_t *pool_global;
 #elif defined CHUNK_BITMAP
     #include "chunk/internal/chunk_bitmap.h"
 
-#elif defined CHUNK_SPLIT
-    #include "chunk/internal/chunk_split.h"
+#elif defined CHUNK_SPLIT_FOLLOW
+    #define REGION_CLEAN 0
+    #define REGION_DIRTY 1
+    #include "chunk/internal/chunk_split_follow.h"
 
 #endif
 

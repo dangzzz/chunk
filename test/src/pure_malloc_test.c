@@ -9,6 +9,7 @@ void *ptr[30000];
 
 void do_test()
 {
+
     struct timeval start;
 
     struct timeval end;
@@ -25,6 +26,7 @@ void do_test()
     diff = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
 
     printf("%lu\n", diff);
+
 }
 
 int main()

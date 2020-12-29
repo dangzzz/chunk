@@ -7,8 +7,8 @@
 
 /test/src/*.[od]
 
-
 /.vscode
+
 
 
 /cmake_install.cmake
@@ -23,3 +23,5 @@
 
 /Testing
 /CTestTestfile.cmake
+/perf.data
+/perf.data.old

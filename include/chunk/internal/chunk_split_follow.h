@@ -1,26 +1,35 @@
 /******************************************************************************/
 #ifdef CHUNK_H_TYPES
-typedef struct pool_s pool_t;
+typedef struct chunk_s chunk_t;
+typedef struct region_s region_t;
+typedef struct follower_s follower_t;
 #endif /* CHUNK_H_TYPES */
 /******************************************************************************/
 #ifdef CHUNK_H_STRUCTS
 
-struct pool_s
+struct chunk_s
 {
-    void *paddr;
-    void *tailptr;
+    region_t *tail_ptr;
+    intptr_t splitp;
+};
+
+struct region_s
+{
+    uint64_t attrs;
+};
+
+struct follower_s
+{
+    uint64_t attrs;
 };
 
 #endif /* CHUNK_H_STRUCTS */
 /******************************************************************************/
 #ifdef CHUNK_H_EXTERNS
 
-void create_pool();
-chunk_t *pool_alloc_chunk();
-
 #endif /* CHUNK_H_EXTERNS */
 /******************************************************************************/
 #ifdef CHUNK_H_INLINES
 
 #endif /* CHUNK_H_INLINES */
-       /******************************************************************************/
+/******************************************************************************/

@@ -4,7 +4,7 @@ project(chunk)
 
 #SET(CMAKE_BUILD_TYPE "DEBUG")
 SET(CMAKE_C_FLAGS_DEBUG "-DCHUNKDEBUG -O0 -g3 -Wall")
-SET(CMAKE_C_FLAGS_RELEASE " -O3 ")
+SET(CMAKE_C_FLAGS_RELEASE " -O3")
 
 #make时显式输出执行的命令
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -41,7 +41,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES OUTPUT_NAME "${CMA
 enable_testing()
 
 #只需要在下面一行加入你测试文件的文件名就可以了,测试文件要放在test/src/
-set(testsource single_thread_test.c)
+set(testsource pure_malloc_test2.c)
 
 list(LENGTH testsource testsourcelength)
 math(EXPR testsourcelength "${testsourcelength}-1")
