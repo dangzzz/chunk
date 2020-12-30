@@ -23,7 +23,7 @@ static void fill_chunktls()
 static inline uint64_t gen_attr_by(size_t size, uintptr_t ptr)
 {
 #ifdef CHUNKDEBUG
-    printf("setattr:ptr:%lx ,size:%lx ,attr:%lx\n", ptr, size, (ptr << 16) | (size >> 2) | dirty);
+    printf("setattr:ptr:%lx ,size:%lx ,attr:%lx\n", ptr, size, (ptr << 16) | (size >> 2));
 #endif
     return (ptr << 16) | (size >> 2);
 }

@@ -41,7 +41,7 @@ set_target_properties(${CMAKE_PROJECT_NAME}_static PROPERTIES OUTPUT_NAME "${CMA
 enable_testing()
 
 #只需要在下面一行加入你测试文件的文件名就可以了,测试文件要放在test/src/
-set(testsource pure_malloc_test2.c)
+set(testsource cache_test2.c)
 
 list(LENGTH testsource testsourcelength)
 math(EXPR testsourcelength "${testsourcelength}-1")

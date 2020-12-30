@@ -19,7 +19,7 @@ void do_test()
     gettimeofday(&start, NULL);
 
     for (int i = 0; i < 30000; i++)
-        chunk_malloc(128, &ptr[i]);
+        ptr[i] = chunk_malloc(128, &ptr[i]);
 
     gettimeofday(&end, NULL);
 
