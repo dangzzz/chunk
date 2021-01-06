@@ -14,9 +14,15 @@ then
     echo $chunktype
 fi
 
+if [ "$1" == "ss" ]
+then
+    chunktype="chunk_split_search"
+    echo $chunktype
+fi
+
 #git clean -f -d -x
 rm -rf /mnt/pmem/dz*
 rm -rf bin
 rm -rf lib
-cmake CMakeLists.txt -DCHUNK_TYPE=$chunktype -DCMAKE_BUILD_TYPE=RELEASE
+cmake CMakeLists.txt -DCHUNK_TYPE=$chunktype -DCMAKE_BUILD_TYPE=DEBUG
 make

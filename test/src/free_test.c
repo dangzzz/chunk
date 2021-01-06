@@ -7,6 +7,8 @@
 
 void *ptr[300000];
 
+
+
 void do_test()
 {
 
@@ -27,7 +29,6 @@ void do_test()
 
     printf("malloc:%lu\n", diff);
 
-
     gettimeofday(&start, NULL);
 
     for (int i = 0; i < 300000; i++)
@@ -38,16 +39,12 @@ void do_test()
     diff = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
 
     printf("free:%lu\n", diff);
-
 }
 
 int main()
 {
+
     chunk_init();
-
-
-
-
     do_test();
 
     return 0;
