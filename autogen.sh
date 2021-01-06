@@ -18,6 +18,5 @@ fi
 rm -rf /mnt/pmem/dz*
 rm -rf bin
 rm -rf lib
-cmake CMakeLists.txt -DCHUNK_TYPE=$chunktype -DCMAKE_BUILD_TYPE=DEBUG
-make clean
+cmake CMakeLists.txt -DCHUNK_TYPE=$chunktype -DCMAKE_BUILD_TYPE=RELEASE
 make

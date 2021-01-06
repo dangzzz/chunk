@@ -20,7 +20,7 @@ void do_test()
 
     gettimeofday(&start, NULL);
     for (int i = 0; i < 300000; i++)
-        ptr[i] = chunk_malloc(128, &ptr[i]);
+        ptr[i] = chunk_malloc(69, &ptr[i]);
     gettimeofday(&end, NULL);
 
     diff = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;

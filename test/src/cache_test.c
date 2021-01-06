@@ -24,6 +24,7 @@ void do_test(int x)
     {
         //size_t y = ptr[ i * x];
         ptr[i * x] = (size_t)i * x;
+        //pmem_persist(&ptr[i * x],8);
     }
 
     gettimeofday(&end, NULL);

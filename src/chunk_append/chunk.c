@@ -35,10 +35,11 @@ static inline uint64_t gen_attr_by(size_t size, uintptr_t ptr, unsigned short di
     } while (0)
 
 /******************************************************************************/
-void chunk_init()
+int chunk_init()
 {
     create_pool();
     fill_chunktls();
+    return 1;
 }
 
 void *chunk_malloc(size_t size, void **ptr)
