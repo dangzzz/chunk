@@ -14,7 +14,7 @@ struct chunk_s
 
 struct region_s
 {
-    uint64_t attrs;
+    uint32_t attrs;
 };
 
 #endif /* CHUNK_H_STRUCTS */

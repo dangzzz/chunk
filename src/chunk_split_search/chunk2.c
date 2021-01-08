@@ -21,18 +21,20 @@ static void fill_chunktls()
 /******************************************************************************/
 /* Inline tool function */
 
-//8B的前45位是ptr
-static inline uint64_t gen_attr_by(size_t size, uintptr_t ptr, unsigned short dirty)
+//regionsize:4B=32bit
+//size:15  dirty:1  ptr:16
+static inline uint32_t gen_attr_by(size_t size, uintptr_t ptr, unsigned short dirty)
 {
 #ifdef CHUNKDEBUG
     // printf("setattr:ptr:%lx ,size:%lx ,attr:%lx\n", ptr, size, (ptr << 16) | (size >> 2) | dirty);
 #endif
-    return (ptr << 19) | (size >> 2) | dirty;
+    // return (ptr << 19) | (size >> 2) | dirty;
+    return (size << 14) | (dirty << 16) | ptr ;  //todo: 17-3=14
 }
 
-static inline uintptr_t get_attr_ptr(uint64_t attr)
+static inline uintptr_t get_attr_ptr(uint32_t attr)
 {
-    return attr >> 19;
+    return attr & ((1<<16)-1);
 }
 
 #define set_attr_state(attr, state) \
@@ -71,7 +73,7 @@ void *chunk_malloc(size_t size, lsptr *ptr)
     region_t *region = chunk->tail_ptr;
     region->attrs = gen_attr_by(size, (intptr_t)chunk->splitp - (intptr_t)region, REGION_CLEAN);
     //pmem_persist(chunk->tail_ptr,64);
-    _mm_stream_si64(chunk->tail_ptr, gen_attr_by(size, (intptr_t)chunk->splitp - (intptr_t)chunk->tail_ptr, REGION_CLEAN));
+    _mm_stream_si32(chunk->tail_ptr, gen_attr_by(size, (intptr_t)chunk->splitp - (intptr_t)chunk->tail_ptr, REGION_CLEAN));
     chunk->tail_ptr = (region_t *)((intptr_t)chunk->tail_ptr + sizeof(region_t)); //从上往下
 
     *ptr = (intptr_t)chunk->splitp - (intptr_t)ptr;
@@ -96,21 +98,21 @@ void chunk_free(lsptr *ptr)
     do
     {
 #ifdef CHUNKDEBUG
-        //printf("st = %lld\n", st);
+        printf("st = %lld\n", st);
 #endif  
-        uint64_t at = regionst->attrs;
+        uint32_t at = regionst->attrs;
         intptr_t ptrr = (intptr_t)get_attr_ptr(at);
         intptr_t addr = (intptr_t)regionst + ptrr;
 
         if (addr == splitaddr)
         {
-            uint64_t attr = regionst->attrs | REGION_DIRTY;
-            _mm_stream_si64((int *)&regionst->attrs, attr);
+            uint32_t attr = regionst->attrs | REGION_DIRTY;
+            _mm_stream_si32((int *)&regionst->attrs, attr);
 
             //set_attr_state(regionst->attrs, REGION_DIRTY);
             //_mm_clwb(&regionst->attrs);
 #ifdef CHUNKDEBUG
-            //printf("found %lld %d\n", addr, *(int *)addr);
+            printf("found %llx %d\n", addr, *(int *)addr);
 #endif
             break;
         }

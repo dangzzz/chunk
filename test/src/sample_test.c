@@ -7,19 +7,15 @@
 int main()
 {
     chunk_init();
-    // lsptr ptr, ptr2, ptr3;
+    // lsptr ptr;
     // int * addr = chunk_malloc(100, &ptr);
-    // int * addr2 = chunk_malloc(20, &ptr2);
-    // int * addr3 = chunk_malloc(40, &ptr3);
     // *addr = 100;
-    // *addr2 = 20;
-    // *addr3 = 40;
-    // printf("%d\n", *addr3);
-    // printf("%lld\n", addr3);
-    // printf("%lld\n", ptr3);
-    // printf("%lld\n", &ptr3);
+    // printf("%d\n", *addr);
+    // printf("%lld\n", addr);
+    // printf("%lld\n", ptr);
+    // printf("%lld\n", &ptr);
     // printf("---free---\n");
-    // chunk_free(&ptr3);
+    // chunk_free(&ptr);
 
     lsptr ptr[10];
     int * addr[10];
