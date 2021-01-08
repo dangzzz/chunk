@@ -105,7 +105,7 @@ void create_pool()
     }
 
     pmempool.tailptr = pmempool.paddr;
-    touchpage(pmempool.tailptr, PMEMPOOL_SIZE);
+    //touchpage(pmempool.tailptr, PMEMPOOL_SIZE);
 }
 
 chunk_t *pool_alloc_chunk()

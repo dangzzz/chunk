@@ -55,6 +55,12 @@ void *chunk_malloc(size_t size, lsptr *ptr)
     size = ALIGNMENT_CEILING((size), ALIGNMENT);
     //todo 判断是否会填满
 
+    if (chunk == NULL)
+    {
+        fill_chunktls();
+        chunk = chunk_tls;
+    }
+
     if ((intptr_t)chunk->tail_ptr + size + sizeof(region_t) > (intptr_t)chunk->splitp)
     {
         fill_chunktls();
