@@ -11,7 +11,15 @@ pool_t *pool_global = &pmempool;
 
 /******************************************************************************/
 /* Inline tool function */
-
+static  void touchpage(char *ptr, size_t size)
+{
+    for (long long i = 0; i < size ; i += 4096)
+    {
+        //long long y = ptr[i];
+        ptr[i] = 0;
+    }
+    return;
+}
 /******************************************************************************/
 /*
 void create_pool()
@@ -97,6 +105,7 @@ void create_pool()
     }
 
     pmempool.tailptr = pmempool.paddr;
+    touchpage(pmempool.tailptr, PMEMPOOL_SIZE);
 }
 
 chunk_t *pool_alloc_chunk()

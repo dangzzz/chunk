@@ -5,6 +5,10 @@ extern "C" {
 #endif
 
 typedef intptr_t lsptr;
+
+#define toptr(type,lsptr)    ((type)((intptr_t)&lsptr+(intptr_t)lsptr))   
+
+
 void * chunk_malloc(size_t size, lsptr * ptr);
 void chunk_free(lsptr * ptr);
 // void * chunk_malloc(size_t size, void ** ptr);

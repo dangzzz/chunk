@@ -37,7 +37,7 @@
 /******************************************************************************/
 #define CHUNK_H_TYPES
 
-#define CHUNK_LG_SIZE 22
+#define CHUNK_LG_SIZE 16
 #define ALIGNMENT ((size_t)8)
 #define PMEMPOOL_SIZE ((size_t)160 * 1024 * 1024)
 
@@ -45,7 +45,7 @@
 
 #define ALIGNMENT_CEILING(s, alignment) \
     (((s) + (alignment - 1)) & (-(alignment)))
-
+#include "chunk/internal/lsptr.h"
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
 #define REGION_CLEAN 0
@@ -68,7 +68,7 @@
 #undef CHUNK_H_TYPES
 /******************************************************************************/
 #define CHUNK_H_STRUCTS
-
+#include "chunk/internal/lsptr.h"
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
 #include "chunk/internal/chunk_append.h"
@@ -89,7 +89,7 @@
 /******************************************************************************/
 #define CHUNK_H_EXTERNS
 extern pool_t *pool_global;
-
+#include "chunk/internal/lsptr.h"
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
 #include "chunk/internal/chunk_append.h"
@@ -110,7 +110,7 @@ extern pool_t *pool_global;
 #undef CHUNK_H_EXTERNS
 /******************************************************************************/
 #define CHUNK_H_INLINES
-
+#include "chunk/internal/lsptr.h"
 #include "chunk/internal/pmempool.h"
 #ifdef CHUNK_APPEND
 #include "chunk/internal/chunk_append.h"

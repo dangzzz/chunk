@@ -31,7 +31,7 @@ add_library(${CMAKE_PROJECT_NAME}_static STATIC ${${CMAKE_PROJECT_NAME}_src} ${C
 target_compile_definitions(${CMAKE_PROJECT_NAME}_static PRIVATE ${CHUNK_TYPE_D})
 
 #为lsmalloc_static添加编译器flag
-target_compile_options(${CMAKE_PROJECT_NAME}_static PRIVATE -std=gnu99 -pipe -funroll-loops -D_GNU_SOURCE -D_REENTRANT)
+target_compile_options(${CMAKE_PROJECT_NAME}_static PRIVATE -std=gnu99 -pipe -funroll-loops -D_GNU_SOURCE -D_REENTRANT -march=native -mclwb -mclflushopt)
 target_link_libraries(${CMAKE_PROJECT_NAME}_static pmem)
 
 #设置lsmalloc_static输出时叫lsmalloc
@@ -51,7 +51,7 @@ list(GET testsource ${i} testsourcename)
 string(REGEX REPLACE "\.cpp|\.c" "" testname ${testsourcename})
 message("-- add test ${testname}")
 add_executable(${testname} ${CMAKE_CURRENT_LIST_DIR}/test/src/${testsourcename})
-target_compile_options(${testname} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-std=c++11> -D_GNU_SOURCE -D_REENTRANT)
+target_compile_options(${testname} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:-std=c++11> -D_GNU_SOURCE -D_REENTRANT )
 target_link_libraries(${testname} ${CMAKE_PROJECT_NAME}_static)
 add_test(${testname} ${EXECUTABLE_OUTPUT_PATH}/${testname})
 endforeach(i)

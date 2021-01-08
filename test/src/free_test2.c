@@ -11,8 +11,6 @@ lsptr ptr[300000];
 void do_test()
 {
 
-
-
     struct timeval start;
 
     struct timeval end;

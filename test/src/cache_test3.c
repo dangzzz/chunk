@@ -9,15 +9,6 @@
     (((s) + (alignment - 1)) & (-(alignment)))
 size_t *ptr;
 
-void test(int x)
-{
-    //arr[] is an array allocated on Optane DIMM, initialize to 0;
-    for (int i = 0; i < 1000; i++)
-    {
-        arr[i * x] = (long long)1;
-    }
-}
-
 void do_test(int x)
 {
 
@@ -30,7 +21,10 @@ void do_test(int x)
     if (x == 1)
     {
         gettimeofday(&start, NULL);
-
+        for (int i = 0; i < 1024 * 16 ; i++)
+        {
+            size_t y = ptr[i * 128];
+        }
         gettimeofday(&end, NULL);
 
         diff = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
@@ -41,17 +35,14 @@ void do_test(int x)
     {
         gettimeofday(&start, NULL);
 
-        for (int i = 0; i < 1024 * 16 * 128; i++)
+        for (int i = 0; i < 1024 * 16  ; i++)
         {
-            /*size_t y = ptr[i * 32];
-            y = ptr[i * 32 + 1];
-            y = ptr[i * 32 + 2];
-            y = ptr[i * 32 + 3];
-            y = ptr[i * 32 + 4];
-            y = ptr[i * 32 + 5];
-            y = ptr[i * 32 + 6];
-            y = ptr[i * 32 + 7];
-            */
+            size_t y = ptr[i * 128];
+            y = ptr[i * 128 + 32];
+            y = ptr[i * 128 + 64];
+            y = ptr[i * 128 + 96];
+
+            /*
             ptr[i * 32] = (size_t)i * x;
             ptr[i * 32 + 1] = (size_t)i * x;
             ptr[i * 32 + 2] = (size_t)i * x;
@@ -61,6 +52,7 @@ void do_test(int x)
             ptr[i * 32 + 6] = (size_t)i * x;
             ptr[i * 32 + 7] = (size_t)i * x;
             pmem_persist(&ptr[i * 32], 64);
+            */
         }
 
         gettimeofday(&end, NULL);
@@ -75,7 +67,9 @@ int main(int argc, char *argv[])
 {
     char str[32];
     int x = atoi(argv[1]);
+
     sprintf(str, "/mnt/pmem/dz_chunk_testfile%d", x);
+    remove(str);
     size_t mapped_len;
     int is_pmem;
     if ((ptr = pmem_map_file(str, 8 * 1024 * 1024 * 128, PMEM_FILE_CREATE, 0666, &mapped_len, &is_pmem)) == NULL)
